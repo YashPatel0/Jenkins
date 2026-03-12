@@ -19,7 +19,7 @@ pipeline {
                 withSonarQubeEnv('sonar') {
                     sh '''
                         cd backend
-                        mvn clean verify sonar:sonar \
+                        mvn sonar:sonar \
                         -Dsonar.projectKey=easycrud
                     '''
                 }
