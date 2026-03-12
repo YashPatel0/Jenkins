@@ -16,10 +16,12 @@ pipeline {
         }
         stage ('TEST'){
             steps{
-                withSonarQubeEnv(installationName: 'sonar', credentialsId: 'sonar') {
-                    sh '''cd backend
-                        mvn sonar:sonar -Dsonar.projectKey='easycrud'
-                        '''
+                withSonarQubeEnv('sonar') {
+                    sh '''
+                        cd backend
+                        mvn clean verify sonar:sonar \
+                        -Dsonar.projectKey=easycrud
+                    '''
                 }
             }
         }
