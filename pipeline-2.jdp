@@ -1,0 +1,32 @@
+pipeline {
+    agent any
+    stages {
+        stage('PULL'){
+            steps{
+                git branch: 'main', url: 'https://github.com/YashPatel0/EasyCRUD.git'
+            }
+        }
+        stage ('BUILD'){
+            steps{
+                sh '''
+                    cd backend
+                    mvn clean package -DskipTests
+                '''
+            }
+        }
+        stage ('TEST'){
+            steps{
+                withSonarQubeEnv(installationName: 'sonar', credentialsId: 'sonarid') {
+                    sh '''cd backend
+                        mvn sonar:sonar -Dsonar.projectName='easycrud'
+                        '''
+                }
+            }
+        }
+        stage ('DEPLOY'){
+            steps{
+                echo 'DEPLOY SUCCESS'
+            }
+        }
+    }
+}
