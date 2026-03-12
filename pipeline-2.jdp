@@ -6,30 +6,23 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/YashPatel0/EasyCRUD.git'
             }
         }
-
         stage ('BUILD'){
             steps{
                 sh '''
-                cd backend
-                mvn clean package -DskipTests
+                    cd backend
+                    mvn clean package -DskipTests
                 '''
             }
         }
-
         stage ('TEST'){
             steps{
-                withSonarQubeEnv('sonar') {
-                    sh '''
-                    cd backend
-                    mvn clean verify sonar:sonar \
-                    -Dsonar.projectKey=easycrud \
-                    -Dsonar.host.url=$SONAR_HOST_URL \
-                    -Dsonar.token=$SONAR_AUTH_TOKEN
-                    '''
+                withSonarQubeEnv(installationName: 'sonar', credentialsId: 'sonar-id') {
+                    sh '''cd backend
+                        mvn sonar:sonar -Dsonar.projectKey='easycrud'
+                        '''
                 }
             }
         }
-
         stage ('DEPLOY'){
             steps{
                 echo 'DEPLOY SUCCESS'
