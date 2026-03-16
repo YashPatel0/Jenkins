@@ -33,8 +33,9 @@ pipeline {
         stage ('DEPLOY'){
             steps{
                 sh '''
-                    cd backend
-                    aws s3 cp target/student-registration-backend-0.0.1-SNAPSHOT.jar s3://my-buxx-demooo/backend.jar
+cd backend
+mv target/student-registration-backend-0.0.1-SNAPSHOT.jar target/backend.jar
+aws s3 cp target/backend.jar s3://my-buxx-demooo/
                 '''
             }
         }
