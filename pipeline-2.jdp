@@ -32,7 +32,8 @@ pipeline {
         }
         stage ('DEPLOY'){
             steps{
-                echo 'DEPLOY SUCCESS PERFECT'
+                sh '''cd backend
+                aws s3 cp targer/student-registration-backend-0.0.1-SNAPSHOT s3://my-buxx-demooo/'''
             }
         }
     }
