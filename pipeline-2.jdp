@@ -33,7 +33,7 @@ pipeline {
         stage ('DEPLOY'){
             steps{
                 sh '''cd backend
-                aws s3 cp target/student-registration-backend-0.0.1-SNAPSHOT s3://my-buxx-demooo/'''
+                aws s3 cp target/student-registration-backend-0.0.1-SNAPSHOT.jar s3://my-buxx-demooo/'''
             }
         }
     }
