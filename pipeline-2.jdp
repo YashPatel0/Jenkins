@@ -33,7 +33,7 @@ pipeline {
         stage ('DEPLOY'){
             steps{
                 sh '''cd backend
-                aws s3 cp target/* s3://my-buxx-demooo/easycrud-demo'''
+                aws s3 cp target/* s3://my-buxx-demooo/'''
             }
         }
     }
